@@ -1,0 +1,4 @@
+DROP TABLE [Roles]
+GO
+DROP TABLE [Users]
+GO

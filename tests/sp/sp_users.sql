@@ -5,11 +5,9 @@ DECLARE
 ;
 
 EXEC sp_users
-	-- Parámetros de operación
 	1, -- @pnTipoOperacion
 	'jdoe@example.com', -- @pcUser
 
-	-- Parámetros que indican el valor de una columna en un registro
 	NULL, -- @pnIdUser
 	NULL, -- @pcFirstName
 	NULL, -- @pcLastName
@@ -18,7 +16,6 @@ EXEC sp_users
 	NULL, -- @pnIdRole
 	NULL, -- @pnStatus
 
-	--  Parámetros de salida
 	@pnTypeResult OUTPUT,
 	@pcResult OUTPUT,
 	@pcMessage OUTPUT

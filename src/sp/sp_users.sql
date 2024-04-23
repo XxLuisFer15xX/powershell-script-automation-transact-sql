@@ -40,27 +40,27 @@ AS
     DECLARE @cnRegistroActivo               INT = 1;
 BEGIN
     BEGIN TRY
-        BEGIN TRANSACTION;
         -- Validaciónd de parámetros
         SET @vcTempError = 'Error en validar los parámetros';
         SET @pcMessage = '';
 
-        /*SET @pcResult = dbo.rn_tipos_generos_01(
-            -- Parámetros de operación
+        SET @pcResult = dbo.rn_users(
             @pnTipoOperacion,
             @pcUser,
-            -- Parámetros que indican el valor de una columna en un registro
-            @pnIdGenero,
-            @pcNombre,
-            @pcDescripcion,
-            @pnEstadoRegistro
+            @pnIdUser,
+            @pcFirstName,
+            @pcLastName,
+            @pcEmail,
+            @pdBirthdate,
+            @pnIdRole,
+            @pnStatus
         );
         IF @pcResult <> '' AND @pcResult IS NOT NULL BEGIN
-            ROLLBACK TRANSACTION;
             SET @pnTypeResult = @cnResultadErrorControlado;
-            SET @vcTempError = NULL;
             RETURN;
-        END;*/
+        END;
+
+        BEGIN TRANSACTION;
 
         -- Lectura
         IF @pnTipoOperacion = @cnOperacionLectura BEGIN
@@ -178,4 +178,3 @@ BEGIN
         SET @pcMessage = CONCAT(@pcMessage, ' - ',@vcTempError, ' - ErrorMessage:', ERROR_MESSAGE(),' - ErrorLine:', ERROR_LINE());
     END CATCH
 END
-

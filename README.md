@@ -7,7 +7,7 @@ El proyecto tiene como finalidad proporcionar un ejemplo básico para la ejecuci
 Para ello, existe una alternativa mucho más robusta para poder ejecutar archivos SQL y es con la combinación de un script en SQLCMD Mode y un script de Power Shell. Desde el script de Power Shell si se puede conocer la ruta en la cuál fue ejecutado dicho archivo. Por lo que el proceso de ejecutar múltiples archivos .sql se vuelve automático. El comando utilizado para la ejecución de estos scripts es:
 
 ```
-sqlcmd -S $DJOET_DB_SERVER_NAME -U $DJOET_DB_USERNAME -P $DJOET_DB_PASSWORD -v FullScriptDir=`"$pwd`" DataBaseName=$DJOET_DB_DATABASE_NAME -i $PATH_CREATE_DDL -b -f 65001
+sqlcmd -S $DB_SERVER_NAME -U $DB_USERNAME -P $DB_PASSWORD -v FullScriptDir=`"$pwd`" DataBaseName=$DB_DATABASE_NAME -i $PATH_CREATE_DDL -b -f 65001
 ```
 
 Sin duda alguna, este método ahorra bastante tiempo en la ejecución de arhcivos ".sql" de forma automática, más si existen muchas tablas, registros, funciones o procedimientos almacenados. Pero, no es el único beneficio, también con la ejecución automática de scripts, se pueden definir variables de entorno para que los scripts apunten a diferentes ambientes de desarrollo, se pueden agregar tantos como sean necesarios.

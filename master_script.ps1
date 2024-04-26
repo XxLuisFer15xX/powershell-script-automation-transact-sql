@@ -73,11 +73,11 @@ pause
 # Section to obtain environment variables
 # =======================================
 # Getting environment variables from the .env file.
-$DJOT_DB_ENVIRONMENT =
-$DJOET_DB_SERVER_NAME =
-$DJOET_DB_DATABASE_NAME =
-$DJOET_DB_USERNAME =
-$DJOET_DB_PASSWORD =
+$DB_ENVIRONMENT =
+$DB_SERVER_NAME =
+$DB_DATABASE_NAME =
+$DB_USERNAME =
+$DB_PASSWORD =
 Write-Host
 
 if ($selection -eq 0){
@@ -135,19 +135,19 @@ if ($selection -eq 3){
 
 # Verify the database connection data in the environment variables of the ".env" file.
 $count = 0
-if (-not $DJOT_DB_ENVIRONMENT) {
+if (-not $DB_ENVIRONMENT) {
     $count = $count + 1
 }
-if (-not $DJOET_DB_SERVER_NAME) {
+if (-not $DB_SERVER_NAME) {
     $count = $count + 1
 }
-if (-not $DJOET_DB_DATABASE_NAME) {
+if (-not $DB_DATABASE_NAME) {
     $count = $count + 1
 }
-if (-not $DJOET_DB_USERNAME) {
+if (-not $DB_USERNAME) {
     $count = $count + 1
 }
-if (-not $DJOET_DB_PASSWORD) {
+if (-not $DB_PASSWORD) {
     $count = $count + 1
 }
 if ($count -gt 0) {
@@ -216,7 +216,7 @@ Write-Host "Your selected answer was:"
 Write-Host ">" $menuOptions.get_Item($selection)
 
 # Verifying the environment in which the operation is being executed.
-if (($DJOT_DB_ENVIRONMENT -eq "PROD") -and -not (
+if (($DB_ENVIRONMENT -eq "PROD") -and -not (
     $selection -eq 1
 )) {
     Write-Host
@@ -249,30 +249,30 @@ Clear-Host
 if ($selection -eq 0){
     Write-Host "Create the entire database from 0."
     Write-Host
-    sqlcmd -S $DJOET_DB_SERVER_NAME -U $DJOET_DB_USERNAME -P $DJOET_DB_PASSWORD -v FullScriptDir=`"$pwd`" DataBaseName=$DJOET_DB_DATABASE_NAME -i $PATH_CREATE_DDL -b -f 65001
+    sqlcmd -S $DB_SERVER_NAME -U $DB_USERNAME -P $DB_PASSWORD -v FullScriptDir=`"$pwd`" DataBaseName=$DB_DATABASE_NAME -i $PATH_CREATE_DDL -b -f 65001
     Write-Host
-    sqlcmd -S $DJOET_DB_SERVER_NAME -U $DJOET_DB_USERNAME -P $DJOET_DB_PASSWORD -v FullScriptDir=`"$pwd`" DataBaseName=$DJOET_DB_DATABASE_NAME -i $PATH_CREATE_DML -b -f 65001
+    sqlcmd -S $DB_SERVER_NAME -U $DB_USERNAME -P $DB_PASSWORD -v FullScriptDir=`"$pwd`" DataBaseName=$DB_DATABASE_NAME -i $PATH_CREATE_DML -b -f 65001
     Write-Host
-    sqlcmd -S $DJOET_DB_SERVER_NAME -U $DJOET_DB_USERNAME -P $DJOET_DB_PASSWORD -v FullScriptDir=`"$pwd`" DataBaseName=$DJOET_DB_DATABASE_NAME -i $PATH_CREATE_UPDATE_FUNCTIONS -b -f 65001
+    sqlcmd -S $DB_SERVER_NAME -U $DB_USERNAME -P $DB_PASSWORD -v FullScriptDir=`"$pwd`" DataBaseName=$DB_DATABASE_NAME -i $PATH_CREATE_UPDATE_FUNCTIONS -b -f 65001
     Write-Host
-    sqlcmd -S $DJOET_DB_SERVER_NAME -U $DJOET_DB_USERNAME -P $DJOET_DB_PASSWORD -v FullScriptDir=`"$pwd`" DataBaseName=$DJOET_DB_DATABASE_NAME -i $PATH_CREATE_UPDATE_SP -b -f 65001
+    sqlcmd -S $DB_SERVER_NAME -U $DB_USERNAME -P $DB_PASSWORD -v FullScriptDir=`"$pwd`" DataBaseName=$DB_DATABASE_NAME -i $PATH_CREATE_UPDATE_SP -b -f 65001
     Write-Host
 }
 if ($selection -eq 1){
     Write-Host "Update FUNCTIONS and STORED PROCEDURES."
     Write-Host
-    sqlcmd -S $DJOET_DB_SERVER_NAME -U $DJOET_DB_USERNAME -P $DJOET_DB_PASSWORD -v FullScriptDir=`"$pwd`" DataBaseName=$DJOET_DB_DATABASE_NAME -i $PATH_CREATE_UPDATE_FUNCTIONS -b -f 65001
+    sqlcmd -S $DB_SERVER_NAME -U $DB_USERNAME -P $DB_PASSWORD -v FullScriptDir=`"$pwd`" DataBaseName=$DB_DATABASE_NAME -i $PATH_CREATE_UPDATE_FUNCTIONS -b -f 65001
     Write-Host
-    sqlcmd -S $DJOET_DB_SERVER_NAME -U $DJOET_DB_USERNAME -P $DJOET_DB_PASSWORD -v FullScriptDir=`"$pwd`" DataBaseName=$DJOET_DB_DATABASE_NAME -i $PATH_CREATE_UPDATE_SP -b -f 65001
+    sqlcmd -S $DB_SERVER_NAME -U $DB_USERNAME -P $DB_PASSWORD -v FullScriptDir=`"$pwd`" DataBaseName=$DB_DATABASE_NAME -i $PATH_CREATE_UPDATE_SP -b -f 65001
 }
 if ($selection -eq 2){
     Write-Host "Delete the entire database."
     Write-Host
-    sqlcmd -S $DJOET_DB_SERVER_NAME -U $DJOET_DB_USERNAME -P $DJOET_DB_PASSWORD -v FullScriptDir=`"$pwd`" DataBaseName=$DJOET_DB_DATABASE_NAME -i $PATH_DROP_SP -f 65001
+    sqlcmd -S $DB_SERVER_NAME -U $DB_USERNAME -P $DB_PASSWORD -v FullScriptDir=`"$pwd`" DataBaseName=$DB_DATABASE_NAME -i $PATH_DROP_SP -f 65001
     Write-Host
-    sqlcmd -S $DJOET_DB_SERVER_NAME -U $DJOET_DB_USERNAME -P $DJOET_DB_PASSWORD -v FullScriptDir=`"$pwd`" DataBaseName=$DJOET_DB_DATABASE_NAME -i $PATH_DROP_FUNCTIONS -f 65001
+    sqlcmd -S $DB_SERVER_NAME -U $DB_USERNAME -P $DB_PASSWORD -v FullScriptDir=`"$pwd`" DataBaseName=$DB_DATABASE_NAME -i $PATH_DROP_FUNCTIONS -f 65001
     Write-Host
-    sqlcmd -S $DJOET_DB_SERVER_NAME -U $DJOET_DB_USERNAME -P $DJOET_DB_PASSWORD -v FullScriptDir=`"$pwd`" DataBaseName=$DJOET_DB_DATABASE_NAME -i $PATH_DROP_DDL -f 65001
+    sqlcmd -S $DB_SERVER_NAME -U $DB_USERNAME -P $DB_PASSWORD -v FullScriptDir=`"$pwd`" DataBaseName=$DB_DATABASE_NAME -i $PATH_DROP_DDL -f 65001
     Write-Host
     Write-Host "Database deleted successfully."
 }

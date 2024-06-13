@@ -2,6 +2,8 @@
 
 ## Descripción del Proyecto
 
+**v1.0.0**
+
 El proyecto tiene como finalidad proporcionar un ejemplo básico para la ejecución scripts de SQL SERVER de forma automática y seguro. SQL SERVER ya proporciona una forma de ejecutar otros archivos ".sql" a través de un solo script con solo habilitar la opción "SQLCMD Mode" que se encuentra en la pestaña "Query" de la herramienta "SQL Server Management Studio". Pero esta opción tiene un problema principal y es que, no reconoce la ruta de donde fue ejecutado el script, de modo que hay que especificar la ruta absoluta en cada uno de los archivos .sql que se quieran ejecutar.
 
 Para ello, existe una alternativa mucho más robusta para poder ejecutar archivos SQL y es con la combinación de un script en SQLCMD Mode y un script de Power Shell. Desde el script de Power Shell si se puede conocer la ruta en la cuál fue ejecutado dicho archivo. Por lo que el proceso de ejecutar múltiples archivos .sql se vuelve automático. El comando utilizado para la ejecución de estos scripts es:
@@ -13,6 +15,20 @@ sqlcmd -S $DB_SERVER_NAME -U $DB_USERNAME -P $DB_PASSWORD -v FullScriptDir=`"$pw
 Sin duda alguna, este método ahorra bastante tiempo en la ejecución de arhcivos ".sql" de forma automática, más si existen muchas tablas, registros, funciones o procedimientos almacenados. Pero, no es el único beneficio, también con la ejecución automática de scripts, se pueden definir variables de entorno para que los scripts apunten a diferentes ambientes de desarrollo, se pueden agregar tantos como sean necesarios.
 
 Otra ventaja es que ahora se puede simular un versionamiento de los scripts, con el control de versiones de GIT. La efectividad de este versionamiento no siempre será efectivo, ya que al crear, eliminar o modificar estructuras específicas de la base de datos, no se hará la ejecución o reversión 100% satisfactoria. Siempre se necesitará de elaborar unos scripts especiales para actualizar los objetos de base de datos.
+
+**v2.0.0**
+
+Utilizando la misma base de la versión 1, el proyecto se acondicionó para incluir las funcionalidades de Always Encrypted y así agregarle una capa extra de seguridad a nuestros datos, cifrándolos con el esquema de claves de Always Encrypted.
+
+Los cambios más relevantes al proyecto fueron:
+
+-   Incorporación un nuevo script para gestionar las claves CMK y CEK de la base de datos.
+-   Actualización de los script de creación de tablas.
+-   Actualización de los DMLs.
+-   Actualización de las variables de entorno.
+-   Actualización del script maestro.
+-   Incorporación de un script con comandos para gestionar el Key Vault de Azure.
+-   Actualización de la documentación.
 
 ## Creación de Base de Datos y Usuario
 
@@ -46,6 +62,7 @@ Otra ventaja es que ahora se puede simular un versionamiento de los scripts, con
 ### Estructura de archivos
 
 1. **scripts**
+    - **ddl:** Scripts para gestionar las claves de Always Encrypted.
     - **ddl:** Scripts para gestionar los DDLs.
     - **dml:** Scripts para gestionar los DMLs.
     - **functions:** Scripts para gestionar las funciones.
@@ -68,12 +85,17 @@ Otra ventaja es que ahora se puede simular un versionamiento de los scripts, con
 8. **.env.prod:** Archivo que contiene las variables de entorno de PROD del proyecto.
 9. **.env.qa:** Archivo que contiene las variables de entorno de QA del proyecto.
 10. **.gitignore:** Archivo donde se describen los archivos que serán ignorados por git.
-11. **master_script.ps1:** Escript maestro que gestiona la ejecución de scripts SQL.
-12. **README.md:** Archivo que contiene la información general del proyecto.
+11. **KeyVaultCommands.ps1:** Escript con comandos para gestionar las claves del Key Vault de Azure.
+12. **master_script.ps1:** Escript maestro que gestiona la ejecución de scripts SQL.
+13. **README.md:** Archivo que contiene la información general del proyecto.
 
 ### Ejecutar el Script Maestro
 
 1. Abrir la Power Shell de Windows en la raíz del proyecto.
 2. Ejecutar el siguiente comando `Set-ExecutionPolicy Unrestricted` solo UNA VEZ, para autorizar la ejecución de scripts de Power Shell.
 3. Ejecutar el siguiente comando `Install-Module -Name SqlServer -AllowClobber` solo UNA VEZ y presione la tecla A para aceptar todo. Este comando descargará e instalará los módulos de SqlServer.
-4. Ejecutar el siguiente comando `.\master_script.ps1` para correr el script maestro que ejecuta todos los scripts SQL.
+4. Ejecutar el siguiente comando `Install-Module -Name Az -AllowClobber` solo UNA VEZ y presione la tecla A para aceptar todo. Este comando descargará e instalará los módulos de Azure.
+5. Ejecutar el siguiente comando `.\master_script.ps1` para correr el script maestro que ejecuta todos los scripts SQL.
+6. En caso de dar algún error al correr los scripts, es de actualizar los módulos de SqlServer y Az. Ejecutar los siguientes comandos de PowerShell UNA VEZ:
+    - `Update-Module -Name Az`
+    - `Update-Module -Name SqlServer`

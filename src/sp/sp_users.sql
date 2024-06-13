@@ -7,7 +7,7 @@ CREATE OR ALTER PROCEDURE [dbo].[sp_users] (
     @pnIdUser INT = NULL,
     @pcFirstName VARCHAR(100) = NULL,
     @pcLastName VARCHAR(100) = NULL,
-    @pcEmail VARCHAR(100) = NULL,
+    @pcEmail VARCHAR(50) = NULL,
     @pdBirthdate DATETIME = NULL,
     @pnIdRole INT = NULL,
     @pnStatus INT = NULL,
@@ -48,10 +48,7 @@ BEGIN
             @pnTipoOperacion,
             @pcUser,
             @pnIdUser,
-            @pcFirstName,
-            @pcLastName,
             @pcEmail,
-            @pdBirthdate,
             @pnIdRole,
             @pnStatus
         );

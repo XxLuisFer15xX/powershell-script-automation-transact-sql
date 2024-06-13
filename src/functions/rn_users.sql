@@ -5,10 +5,7 @@ CREATE OR ALTER FUNCTION [dbo].[rn_users] (
 
     -- Parámetros que indican el valor de una columna en un registro
     @pnIdUser INT = NULL,
-    @pcFirstName VARCHAR(100) = NULL,
-    @pcLastName VARCHAR(100) = NULL,
-    @pcEmail VARCHAR(100) = NULL,
-    @pdBirthdate DATETIME = NULL,
+    @pcEmail VARCHAR(50) = NULL,
     @pnIdRole INT = NULL,
     @pnStatus INT = NULL
 )
@@ -77,17 +74,8 @@ BEGIN
 
     -- Creación
     IF @pnTipoOperacion = @cnOperacionCreacion BEGIN
-        IF @pcFirstName IS NULL BEGIN
-            SET @vcMessage = @vcMessage + '@pcFirstName, ';
-        END;
-        IF @pcLastName IS NULL BEGIN
-            SET @vcMessage = @vcMessage + '@pcLastName, ';
-        END;
         IF @pcEmail IS NULL BEGIN
             SET @vcMessage = @vcMessage + '@pcEmail, ';
-        END;
-        IF @pdBirthdate IS NULL BEGIN
-            SET @vcMessage = @vcMessage + '@pdBirthdate, ';
         END;
         IF @pnIdRole IS NULL BEGIN
             SET @vcMessage = @vcMessage + '@pnIdRole, ';
@@ -111,17 +99,8 @@ BEGIN
         IF @pnIdUser IS NULL BEGIN
             SET @vcMessage = @vcMessage + '@pnIdUser, ';
         END;
-        IF @pcFirstName IS NULL BEGIN
-            SET @vcMessage = @vcMessage + '@pcFirstName, ';
-        END;
-        IF @pcLastName IS NULL BEGIN
-            SET @vcMessage = @vcMessage + '@pcLastName, ';
-        END;
         IF @pcEmail IS NULL BEGIN
             SET @vcMessage = @vcMessage + '@pcEmail, ';
-        END;
-        IF @pdBirthdate IS NULL BEGIN
-            SET @vcMessage = @vcMessage + '@pdBirthdate, ';
         END;
         IF @pnIdRole IS NULL BEGIN
             SET @vcMessage = @vcMessage + '@pnIdRole, ';
